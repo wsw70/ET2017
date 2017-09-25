@@ -1,4 +1,5 @@
 import arrow
+from dateutil import tz
 
 vacances = [
     arrow.Arrow.range('day', arrow.get('21/10/2017', 'DD/MM/YYYY'), arrow.get('06/11/2017', 'DD/MM/YYYY')),
@@ -8,7 +9,11 @@ vacances = [
 ]
 
 with open('mi.txt', 'w') as f:
-    for date in arrow.Arrow.range('day', arrow.get('06/09/2017', 'DD/MM/YYYY'), arrow.get('06/07/2018', 'DD/MM/YYYY')):
+    for date in arrow.Arrow.range(
+            'day',
+            arrow.get('06/09/2017', 'DD/MM/YYYY', tzinfo=tz.tzlocal()),
+            arrow.get('06/07/2018', 'DD/MM/YYYY', tzinfo=tz.tzlocal())
+    ):
         is_vacation = False
         is_weekend = False
         for vac in vacances:
